@@ -8,9 +8,16 @@
 
 导入头文件：#import "UIView+EdgeShadow.h"
 
-调用该 UIView 扩展的对应方法：
+调用 addShadowEdge 方法：
 
-1. addTopShadowColor：绘制上阴影
-2. addDownShadowColor：绘制下阴影
-3. addLeftShadowColor：绘制上阴影
-4. addRightShadowColor：绘制下阴影
+```swift
+// 绘制 下阴影
+    [_vwView addShadowEdge:DOWN shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 上阴影
+    [_vwView addShadowEdge:UP shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 左阴影
+    [_vwView addShadowEdge:LEFT shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 右阴影
+    [_vwView addShadowEdge:RIGHT shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+```
+

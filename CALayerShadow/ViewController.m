@@ -23,12 +23,16 @@
     _vwView.layer.cornerRadius = 5;
     _vwView.layer.borderColor = [UIColor colorWithHex:0xdddddd].CGColor;
     _vwView.layer.borderWidth = 1;
+    
 
-    [_vwView addTopShadowColor:[UIColor blackColor] opacity:1 width:8 corner:16];
-    [_vwView addDownShadowColor:[UIColor blackColor] opacity:1 width:8 corner:16];
-    [_vwView addLeftShadowColor:[UIColor blackColor] opacity:1 width:8 corner:16];
-    [_vwView addRightShadowColor:[UIColor blackColor] opacity:1 width:8 corner:16];
-
+    // 绘制 下阴影
+    [_vwView addShadowEdge:DOWN shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 上阴影
+    [_vwView addShadowEdge:UP shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 左阴影
+    [_vwView addShadowEdge:LEFT shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 右阴影
+    [_vwView addShadowEdge:RIGHT shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
 }
 
 

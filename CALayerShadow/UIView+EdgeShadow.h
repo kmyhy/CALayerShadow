@@ -9,14 +9,15 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
+
+typedef enum : NSUInteger {
+    UP,
+    LEFT,
+    DOWN,
+    RIGHT,
+} EdgeDirection;
+
 @interface UIView (EdgeShadow)
 
-// 添加上阴影
--(void)addTopShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner;
-// 添加下阴影
--(void)addDownShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner;
-// 添加左阴影
--(void)addLeftShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner;
-// 添加右阴影
--(void)addRightShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner;
+-(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii;
 @end
