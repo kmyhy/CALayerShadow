@@ -19,5 +19,10 @@ typedef enum : NSUInteger {
 
 @interface UIView (EdgeShadow)
 
+@property(nonatomic,strong)UIView* upShadowView;
+@property(nonatomic,strong)UIView* leftShadowView;
+@property(nonatomic,strong)UIView* downShadowView;
+@property(nonatomic,strong)UIView* rightShadowView;
+
 -(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii;
 @end

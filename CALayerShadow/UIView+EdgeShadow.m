@@ -8,28 +8,42 @@
 
 #import "UIView+EdgeShadow.h"
 #import "Masonry.h"
-
+#import <objc/runtime.h>
 
 
 @implementation UIView (EdgeShadow)
-// 添加上阴影- 注意 width 越宽，好像阴影越淡
--(void)addTopShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner{
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y-width, self.frame.size.width, width*2+1)];
-    view.layer.cornerRadius = corner;
-    view.layer.masksToBounds = YES;
-    [self.superview insertSubview:view belowSubview:self];
 
-    CALayer *shadowLayer = [CALayer layer];
-    shadowLayer.frame = CGRectMake(0, width,view.frame.size.width,1);
-    shadowLayer.shadowRadius = width;
-    shadowLayer.shadowColor = color.CGColor;
-    shadowLayer.shadowOffset = CGSizeMake(0, 0);
-    shadowLayer.shadowOpacity = opacity;
-    shadowLayer.shadowPath = [UIBezierPath bezierPathWithRect:shadowLayer.bounds].CGPath;
-    
-    [view.layer addSublayer:shadowLayer];
+@dynamic upShadowView;
+@dynamic leftShadowView;
+@dynamic downShadowView;
+@dynamic rightShadowView;
+
+// MARK: - Getter/Setter
+-(UIView*)upShadowView{
+    return objc_getAssociatedObject(self, @selector(upShadowView));
 }
+-(void)setUpShadowView:(UIView *)view{
+    objc_setAssociatedObject(self, @selector(upShadowView), view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIView*)leftShadowView{
+    return objc_getAssociatedObject(self, @selector(leftShadowView));
+}
+-(void)setLeftShadowView:(UIView *)view{
+    objc_setAssociatedObject(self, @selector(leftShadowView), view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIView*)downShadowView{
+    return objc_getAssociatedObject(self, @selector(downShadowView));
+}
+-(void)setDownShadowView:(UIView *)view{
+    objc_setAssociatedObject(self, @selector(downShadowView), view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIView*)rightShadowView{
+    return objc_getAssociatedObject(self, @selector(rightShadowView));
+}
+-(void)setRightShadowView:(UIView *)view{
+    objc_setAssociatedObject(self, @selector(rightShadowView), view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 // 添加阴影
 -(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii{
     // width: 阴影宽度，或模糊半径
@@ -102,6 +116,8 @@
     
     switch (direction) {
         case UP:{
+            [self.upShadowView removeFromSuperview];
+            self.upShadowView= view;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.mas_left);
                 make.right.equalTo(self.mas_right);
@@ -112,6 +128,8 @@
         }
             break;
         case LEFT:{
+            [self.leftShadowView removeFromSuperview];
+            self.leftShadowView = view;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.mas_top);
                 make.bottom.equalTo(self.mas_bottom);
@@ -121,6 +139,8 @@
         }
             break;
         case DOWN:{
+            [self.downShadowView removeFromSuperview];
+            self.downShadowView = view;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.mas_left);
                 make.right.equalTo(self.mas_right);
@@ -130,6 +150,8 @@
         }
             break;
         case RIGHT:{
+            [self.rightShadowView removeFromSuperview];
+            self.rightShadowView = view;
             [view mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.mas_top);
                 make.bottom.equalTo(self.mas_bottom);
@@ -140,42 +162,5 @@
         }
     }
     return view;
-}
-
-// 添加左阴影
--(void)addLeftShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner{
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMinX(self.frame)-width, CGRectGetMinY(self.frame), width*2+1,self.frame.size.height)];
-    view.layer.cornerRadius = corner;
-    view.layer.masksToBounds = YES;
-    [self.superview insertSubview:view belowSubview:self];
-    
-    CALayer *shadowLayer = [CALayer layer];
-    shadowLayer.frame = CGRectMake(width,0,1,view.frame.size.height);
-    shadowLayer.shadowRadius = width;
-    shadowLayer.shadowColor = color.CGColor;
-    shadowLayer.shadowOffset = CGSizeMake(0,0);
-    shadowLayer.shadowOpacity = opacity;
-    shadowLayer.shadowPath = [UIBezierPath bezierPathWithRect:shadowLayer.bounds].CGPath;
-    
-    [view.layer addSublayer:shadowLayer];
-}
-// 添加右阴影
--(void)addRightShadowColor:(UIColor*)color opacity:(CGFloat)opacity width:(CGFloat)width corner:(CGFloat)corner{
-    
-    UIView* view = [[UIView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.frame)-width, CGRectGetMinY(self.frame), width*2+1,self.frame.size.height)];
-    view.layer.cornerRadius = corner;
-    view.layer.masksToBounds = YES;
-    [self.superview insertSubview:view belowSubview:self];
-    
-    CALayer *shadowLayer = [CALayer layer];
-    shadowLayer.frame = CGRectMake(width,0,1,view.frame.size.height);
-    shadowLayer.shadowRadius = width;
-    shadowLayer.shadowColor = color.CGColor;
-    shadowLayer.shadowOffset = CGSizeMake(0,0);
-    shadowLayer.shadowOpacity = opacity;
-    shadowLayer.shadowPath = [UIBezierPath bezierPathWithRect:shadowLayer.bounds].CGPath;
-    
-    [view.layer addSublayer:shadowLayer];
 }
 @end
