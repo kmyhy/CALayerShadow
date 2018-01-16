@@ -43,7 +43,13 @@
 -(void)setRightShadowView:(UIView *)view{
     objc_setAssociatedObject(self, @selector(rightShadowView), view, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-
+// 在四周都绘制阴影
+-(void)addShadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii shadowOffset:(CGSize)offset{
+    self.layer.shadowColor = color.CGColor;
+    self.layer.shadowRadius = radii;
+    self.layer.shadowOpacity = opacity;
+    self.layer.shadowOffset = offset;
+}
 // 添加阴影
 -(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii{
     // width: 阴影宽度，或模糊半径

@@ -25,4 +25,6 @@ typedef enum : NSUInteger {
 @property(nonatomic,strong)UIView* rightShadowView;
 
 -(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii;
+
+-(void)addShadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii shadowOffset:(CGSize)offset;
 @end
