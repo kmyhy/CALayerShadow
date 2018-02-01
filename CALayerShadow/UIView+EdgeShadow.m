@@ -55,12 +55,12 @@
     // width: 阴影宽度，或模糊半径
     
     UIView* shadowView = [self showdowView:direction blurRadius:radii];
-    
     UIView* line = [self drawLineDirection:direction blurRadius:radii inView:shadowView];
     line.backgroundColor= [UIColor whiteColor];
+    line.alpha = opacity;
     line.layer.shadowRadius = radii; // 模糊半径，值越小，阴影越清晰，否者阴影越淡
     line.layer.shadowColor = color.CGColor;
-    line.layer.shadowOffset = CGSizeMake(0,0.5);// 阴影偏离 UIView 的偏移坐标
+    line.layer.shadowOffset = CGSizeMake(0,0);// 阴影偏离 UIView 的偏移坐标
     line.layer.shadowOpacity = opacity;
 }
 // 根据指定方向在阴影区域绘制一条线
@@ -72,10 +72,10 @@
         case UP:
             {
                 [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(@(radii+corner));
-                    make.right.equalTo(@(-radii-corner));
-                    make.top.equalTo(@(radii+0.5));
-                    make.height.mas_equalTo(0.5);
+                    make.left.equalTo(@(corner));
+                    make.right.equalTo(@(-corner));
+                    make.top.equalTo(@(radii+corner/2));
+                    make.height.mas_equalTo(radii);
                 }];
             }
             break;
@@ -83,30 +83,30 @@
         case LEFT:
         {
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(@(radii+corner));
-                make.bottom.equalTo(@(-radii-corner));
-                make.left.equalTo(@(radii+0.5));
-                make.width.mas_equalTo(0.5);
+                make.top.equalTo(@(corner));
+                make.bottom.equalTo(@(-corner));
+                make.left.equalTo(@(radii+corner/2));
+                make.width.mas_equalTo(radii);
             }];
         }
             break;
         case DOWN:
         {
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(@(radii+corner));
-                make.right.equalTo(@(-radii-corner));
-                make.top.equalTo(@(radii-0.5));
-                make.height.mas_equalTo(0.5);
+                make.left.equalTo(@(corner));
+                make.right.equalTo(@(-corner));
+                make.top.equalTo(@(0-corner/2));
+                make.height.mas_equalTo(radii);
             }];
         }
             break;
         case RIGHT:
         {
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(@(radii+corner));
-                make.bottom.equalTo(@(-radii-corner));
-                make.left.equalTo(@(radii-0.5));
-                make.width.mas_equalTo(0.5);
+                make.top.equalTo(@(corner));
+                make.bottom.equalTo(@(-corner));
+                make.left.equalTo(@(0-corner/2));
+                make.width.mas_equalTo(radii);
             }];
         }
     }
@@ -128,7 +128,7 @@
                 make.left.equalTo(self.mas_left);
                 make.right.equalTo(self.mas_right);
                 make.top.equalTo(self.mas_top).offset(-radii);
-                make.height.mas_equalTo(radii*2+0.5);
+                make.height.mas_equalTo(radii*2);
             }];
             
         }
@@ -140,7 +140,7 @@
                 make.top.equalTo(self.mas_top);
                 make.bottom.equalTo(self.mas_bottom);
                 make.left.equalTo(self.mas_left).offset(-radii);
-                make.width.mas_equalTo(radii*2+1);
+                make.width.mas_equalTo(radii*2);
             }];
         }
             break;
@@ -151,7 +151,7 @@
                 make.left.equalTo(self.mas_left);
                 make.right.equalTo(self.mas_right);
                 make.top.equalTo(self.mas_bottom).offset(-radii);
-                make.height.mas_equalTo(radii*2+1);
+                make.height.mas_equalTo(radii*2);
             }];
         }
             break;
@@ -162,7 +162,7 @@
                 make.top.equalTo(self.mas_top);
                 make.bottom.equalTo(self.mas_bottom);
                 make.left.equalTo(self.mas_right).offset(-radii);
-                make.width.mas_equalTo(radii*2+1);
+                make.width.mas_equalTo(radii*2);
             }];
             
         }

@@ -26,15 +26,15 @@
     
 
     // 绘制 下阴影
-//    [_vwView addShadowEdge:DOWN shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
-//    // 绘制 上阴影
-//    [_vwView addShadowEdge:UP shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
-//    // 绘制 左阴影
-//    [_vwView addShadowEdge:LEFT shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
-//    // 绘制 右阴影
-//    [_vwView addShadowEdge:RIGHT shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
+    [_vwView addShadowEdge:DOWN shadowColor:[UIColor redColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 上阴影
+    [_vwView addShadowEdge:UP shadowColor:[UIColor redColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 左阴影
+    [_vwView addShadowEdge:LEFT shadowColor:[UIColor redColor] shadowOpacity:1 blurRadius:4];
+    // 绘制 右阴影
+    [_vwView addShadowEdge:RIGHT shadowColor:[UIColor redColor] shadowOpacity:1 blurRadius:4];
     
-    [_vwView addShadowColor:[UIColor blackColor] shadowOpacity:0.2 blurRadius:2 shadowOffset:CGSizeZero];
+//    [_vwView addShadowColor:[UIColor redColor] shadowOpacity:0.2 blurRadius:2 shadowOffset:CGSizeZero];
     
 }
 
