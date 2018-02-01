@@ -52,11 +52,14 @@
 }
 // 添加阴影
 -(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii{
-    // width: 阴影宽度，或模糊半径
-    
+    [self addShadowEdge:direction shadowColor:color shadowOpacity:opacity blurRadius:radii offset:0];
+}
+// 添加阴影
+-(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii offset:(CGFloat)offset{
+    // offset 参数指偏移坐标，用于补偿阴影浓度，取值 0-n 之间，值越大阴影越浓
     UIView* shadowView = [self showdowView:direction blurRadius:radii];
-    UIView* line = [self drawLineDirection:direction blurRadius:radii inView:shadowView];
-    line.backgroundColor= [UIColor whiteColor];
+    UIView* line = [self drawLineDirection:direction blurRadius:radii inView:shadowView offset:offset];
+    line.backgroundColor= color;//[UIColor whiteColor];
     line.alpha = opacity;
     line.layer.shadowRadius = radii; // 模糊半径，值越小，阴影越清晰，否者阴影越淡
     line.layer.shadowColor = color.CGColor;
@@ -64,20 +67,22 @@
     line.layer.shadowOpacity = opacity;
 }
 // 根据指定方向在阴影区域绘制一条线
--(UIView*)drawLineDirection:(EdgeDirection)direction blurRadius:(CGFloat)radii inView:(UIView*)view{
+-(UIView*)drawLineDirection:(EdgeDirection)direction blurRadius:(CGFloat)radii inView:(UIView*)view offset:(CGFloat)offset{
     CGFloat corner = self.layer.cornerRadius;
     UIView* line = [UIView new];
     [view  addSubview:line];
+    //    line.layer.cornerRadius = (radii+offset)/2;
+    //    line.clipsToBounds = YES;
     switch (direction) {
         case UP:
-            {
-                [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(@(corner));
-                    make.right.equalTo(@(-corner));
-                    make.top.equalTo(@(radii+corner/2));
-                    make.height.mas_equalTo(radii);
-                }];
-            }
+        {
+            [line mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@(corner));
+                make.right.equalTo(@(-corner));
+                make.top.equalTo(@(radii+corner/2-offset));
+                make.height.mas_equalTo(radii+offset);
+            }];
+        }
             break;
             
         case LEFT:
@@ -85,8 +90,8 @@
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(@(corner));
                 make.bottom.equalTo(@(-corner));
-                make.left.equalTo(@(radii+corner/2));
-                make.width.mas_equalTo(radii);
+                make.left.equalTo(@(radii+corner/2-offset));
+                make.width.mas_equalTo(radii+offset);
             }];
         }
             break;
@@ -95,8 +100,8 @@
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(@(corner));
                 make.right.equalTo(@(-corner));
-                make.top.equalTo(@(0-corner/2));
-                make.height.mas_equalTo(radii);
+                make.top.equalTo(@(0-corner/2+offset));
+                make.height.mas_equalTo(radii+offset);
             }];
         }
             break;
@@ -105,8 +110,8 @@
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(@(corner));
                 make.bottom.equalTo(@(-corner));
-                make.left.equalTo(@(0-corner/2));
-                make.width.mas_equalTo(radii);
+                make.left.equalTo(@(0-corner/2+offset));
+                make.width.mas_equalTo(radii+offset);
             }];
         }
     }
@@ -170,3 +175,5 @@
     return view;
 }
 @end
+
+

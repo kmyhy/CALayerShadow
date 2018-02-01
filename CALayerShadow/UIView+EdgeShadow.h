@@ -26,8 +26,8 @@ typedef enum : NSUInteger {
 
 // 调用示例：[_vwView addShadowEdge:DOWN shadowColor:[UIColor blackColor] shadowOpacity:1 blurRadius:4];
 -(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii;
-
+// 上面方法的变异方法
+-(void)addShadowEdge:(EdgeDirection)direction shadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii offset:(CGFloat)offset;
 // 调用示例： [_vwView addShadowColor:[UIColor blackColor] shadowOpacity:0.2 blurRadius:2 shadowOffset:CGSizeZero];
 -(void)addShadowColor:(UIColor*)color shadowOpacity:(CGFloat)opacity blurRadius:(CGFloat)radii shadowOffset:(CGSize)offset;
 @end
-
